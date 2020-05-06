@@ -31,7 +31,6 @@ type
     PNGButton7: TPNGButton;
     ScrollBox1: TScrollBox;
     Memo1: TMemo;
-    Image7: TImage;
     Memo2: TMemo;
     Memo3: TMemo;
     Image9: TImage;
@@ -165,6 +164,8 @@ type
     RadioGroup9: TRadioGroup;
     Memo21: TMemo;
     RadioGroup10: TRadioGroup;
+    Timer1: TTimer;
+    Image7: TImage;
     procedure Image3Click(Sender: TObject);
     procedure PNGButton6Click(Sender: TObject);
     procedure PNGButton5Click(Sender: TObject);
@@ -183,6 +184,8 @@ type
     procedure PNGButton18Click(Sender: TObject);
     procedure PNGButton19Click(Sender: TObject);
     procedure PNGButton20Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -191,7 +194,7 @@ type
 
 var
   MainWindow: TMainWindow;
-  i, testResult:integer;
+  i, testResult, iClose:integer;
 
 implementation
 
@@ -377,6 +380,23 @@ end;
 procedure TMainWindow.PNGButton20Click(Sender: TObject);
 begin
 PNGButton3Click(Self);
+end;
+
+procedure TMainWindow.Timer1Timer(Sender: TObject);
+begin
+if iClose = 0 then
+begin
+Timer1.Enabled := false;
+Application.Terminate;
+end;
+iClose := iClose - 1;
+end;
+
+procedure TMainWindow.FormActivate(Sender: TObject);
+begin
+{ShowMessage('¬Õ»Ã¿Õ»≈! œ–Œ¡Õ¿ﬂ ¬≈–—»ﬂ ƒÀ»“‹—ﬂ 1 Ã»Õ”“”!');
+iClose := 60;
+Timer1.Enabled := true; }
 end;
 
 end.
