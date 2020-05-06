@@ -11,7 +11,7 @@ This program💻 was developed, specifically for the boy student🎓.  This is n
 =====================
 ## 2. Implemented reset password.
 #### Reset password ShowDialog👇
-![Image alt](https://github.com/vadimsmerekooo/DynamicHelper/raw/master/Preview/ChangePasswordPanel.png.png)
+![Image alt](https://github.com/vadimsmerekooo/DynamicHelper/raw/master/Preview/ChangePasswordPanel.png)
 =====================
 ## 3. In MainWindow, brief instructions for using the application.
 #### MainWindow👇
