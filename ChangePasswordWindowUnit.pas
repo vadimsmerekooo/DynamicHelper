@@ -35,13 +35,17 @@ implementation
 uses MainDataModuleUnit;
 
 {$R *.dfm}
-
+                   
+{Эта функция отвечает за сгругление углов у формы}
 procedure TChangePasswordWindow.FormCreate(Sender: TObject);
 var
 tmpReg: HRGN;
-begin
-DoubleBuffered := true;
-ChangePasswordWindow.Borderstyle := bsNone;
+begin          
+{Двойная буферизация для нормального показа деталей}
+DoubleBuffered := true;                 
+{Убираем бордер}
+ChangePasswordWindow.Borderstyle := bsNone; 
+{Тут изменяем контур}
    tmpReg := CreateRoundRectRgn(0,
     0,
     ClientWidth,
@@ -53,6 +57,7 @@ end;
 
 procedure TChangePasswordWindow.PNGButton5Click(Sender: TObject);
 begin
+{Закрытие окна}
 LoginEdit.Clear;
 Passedit.Clear;
 ChangePasswordWindow.Close;
@@ -60,16 +65,22 @@ end;
 
 procedure TChangePasswordWindow.PNGButton4Click(Sender: TObject);
 begin
+{Изменение пароля}
 if(LoginEdit.Text <> '') and (PassEdit.Text <> '') then
   begin
+  {Ищем юзера}
     MainDataModule.MainADOQuery.SQL.Clear;
     MainDataModule.MainADOQuery.SQL.Add('SELECT SurnameUser FROM Users WHERE SurnameUser='+#39+LoginEdit.Text+#39);
     MainDataModule.MainADOQuery.Open;
+    {Если запрос вернул false, тогда пользователь существует}
     if(MainDataModule.MainADOQuery.IsEmpty = false) then
       begin
+      {Заполняем параметры}
         MainDataModule.ChangePasswordADOQuery.Parameters.ParamByName('userlogin').Value := LoginEdit.Text;
         MainDataModule.ChangePasswordADOQuery.Parameters.ParamByName('newpass').Value := PassEdit.Text;
         MainDataModule.ChangePasswordADOQuery.ExecSQL;
+        {обновляем подключение к БД
+        На всякий пожарный}
         MainDataModule.MainADOConnection.Connected := false;
         MainDataModule.MainADOConnection.Connected := true;
         LoginEdit.Clear;
@@ -85,7 +96,9 @@ if(LoginEdit.Text <> '') and (PassEdit.Text <> '') then
 end;
 
 procedure TChangePasswordWindow.BitBtn2Click(Sender: TObject);
-begin
+begin    
+{Оброботчик на кнопку показа пароля}
+{По дефолту стоит #0(это обычный char символ), * тут понятно}
 if(PassEdit.PasswordChar = '*')then
  PassEdit.PasswordChar := #0
  else

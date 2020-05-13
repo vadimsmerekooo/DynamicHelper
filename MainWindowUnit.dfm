@@ -13,7 +13,6 @@ object MainWindow: TMainWindow
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnActivate = FormActivate
   PixelsPerInch = 96
   TextHeight = 26
   object MainPageControl: TPageControl
@@ -11429,7 +11428,7 @@ object MainWindow: TMainWindow
       Font.Name = 'Comic Sans MS'
       Font.Style = []
       ButtonLayout = pbsImageAbove
-      Caption = #1051#1077#1082#1094#1080#1103' '#1087#1086' '#1090#1077#1084#1077' "'#1044#1080#1085#1072#1084#1080#1095#1077#1089#1082#1080#1077' '#1089#1090#1088#1091#1082#1090#1091#1088#1099' '#1076#1072#1085#1085#1099#1093'"'
+      Caption = #1043#1083#1072#1074#1085#1072#1103
       ButtonStyle = pbsNoFrame
     end
   end
@@ -11484,11 +11483,5 @@ object MainWindow: TMainWindow
         'tUser) VALUES (:Tname, :Tsurname, :Tgroup, :Tresult)')
     Left = 184
     Top = 400
-  end
-  object Timer1: TTimer
-    Enabled = False
-    OnTimer = Timer1Timer
-    Left = 935
-    Top = 48
   end
 end

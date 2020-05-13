@@ -164,7 +164,6 @@ type
     RadioGroup9: TRadioGroup;
     Memo21: TMemo;
     RadioGroup10: TRadioGroup;
-    Timer1: TTimer;
     Image7: TImage;
     procedure Image3Click(Sender: TObject);
     procedure PNGButton6Click(Sender: TObject);
@@ -184,8 +183,6 @@ type
     procedure PNGButton18Click(Sender: TObject);
     procedure PNGButton19Click(Sender: TObject);
     procedure PNGButton20Click(Sender: TObject);
-    procedure Timer1Timer(Sender: TObject);
-    procedure FormActivate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -204,36 +201,45 @@ uses AuthRegWindowUnit, MainDataModuleUnit;
 
 procedure TMainWindow.Image3Click(Sender: TObject);
 begin
+{Закрываем приложение}
 Application.Terminate;
 end;
 
 procedure TMainWindow.PNGButton6Click(Sender: TObject);
-begin  
+begin
+{Таймер теста, его стопим вдруг во время теста, юзер захочет заказать себе сьебасса}
 TimerTest.Enabled := False;   
 Panel9.Visible := false;
 PNGButton1.Caption := 'Лекция по теме "Динамические структуры данных"';
+{Тут юзается PageControl, для отображения страниц, очень удобно, никаких панелей, лишних окно
+Тут у каждого Page есть свое имя, тут мы активируем нужный нам Page}
 MainPageControl.ActivePage := Lesson1Page;
 end;
 
 procedure TMainWindow.PNGButton5Click(Sender: TObject);
-begin          
+begin
+{Таймер}
 TimerTest.Enabled := False;  
 Panel9.Visible := false;
 PNGButton1.Caption := 'Главная';
+{Page}
 MainPageControl.ActivePage := HomePage;
 end;
 
 procedure TMainWindow.PNGButton7Click(Sender: TObject);
-begin                  
+begin
+{Timer}
 TimerTest.Enabled := False;
 Panel9.Visible := false;
 PNGButton1.Caption := 'Тест по теме "Динамические структуры данных"';
+{Page}
 MainPageControl.ActivePage := TestPage;
 TestPageControl.ActivePage := MainTestPage;
 end;
 
 procedure TMainWindow.PNGButton4Click(Sender: TObject);
 begin
+{оброботчик смены пользователя}
 TimerTest.Enabled := False;
 Panel9.Visible := false;
 AuthRegWindow.Show();
@@ -242,9 +248,12 @@ end;
 
 procedure TMainWindow.PNGButton3Click(Sender: TObject);
 begin
+{Переменная глобальная, для таймера теста(900 секнуд == 15 минут)}
 i := 900;
+{переменная счетчик правильных ответов}
 testResult := 0;
 ShowMessage('При отмене теста, набраный результат, НЕ СОХРАНИТЬСЯ!');
+{Page}
 TestPageControl.ActivePage := Level1Page;
 Label3.Caption := '00:15:00';
 Label6.Caption := '1/10';
@@ -256,18 +265,26 @@ procedure TMainWindow.TimerTestTimer(Sender: TObject);
 var
   H, M, S: Integer;
 begin
+{Это код таймера, который будет выводить выремя теста в label}
+{отнимаем секунду}
   i := i - 1;
+  {Дефолт математика}
   H := I div 3600;
   M := (I mod 3600) div 60;
   S := (I mod 3600) mod 60;
+  {Тут выводим}
   Label3.Caption := Format('%.2d:',[H]) + Format('%.2d:',[M]) + Format('%.2d',[S]);
 
+  {Если осталось время для выпонения теста, больше 10 минут, тогда зеленое
+  если меньше 10 больше 5 то оранжевое
+  если меньше 5 то все херово, красный}
   if(M > 10) then
     Label3.Font.Color := clGreen;
   if(M < 10) and (M > 5) then
     Label3.Font.Color := clOlive;
   if(M < 5) then
     Label3.Font.Color := clRed;
+    {Если время истекло, тогда все останавливаем}
   if i = 0 then
   begin
     PNGButton19Click(Self);
@@ -277,7 +294,10 @@ end;
 
 procedure TMainWindow.PNGButton10Click(Sender: TObject);
 begin
+{Тут для теста
+Проверка на правильность выбора варианта ответа, при нажатии на кнопку "Далее"}
 if(RadioGroup1.ItemIndex = 0) then testResult := testResult + 1;
+{Убираем выбранный ответ, чтобы все осталось чистеньким}
 RadioGroup1.ItemIndex := -1;
 Label6.Caption := '2/10';
 TestPageControl.ActivePage := Level2Page;
@@ -285,55 +305,76 @@ end;
 
 procedure TMainWindow.PNGButton11Click(Sender: TObject);
 begin
+{Тут для теста
+Проверка на правильность выбора варианта ответа, при нажатии на кнопку "Далее"}
 if(RadioGroup2.ItemIndex = 0) then testResult := testResult + 1;
+{Убираем выбранный ответ, чтобы все осталось чистеньким}
 RadioGroup2.ItemIndex := -1;
 Label6.Caption := '3/10';
 TestPageControl.ActivePage := Level3Page;
 end;
 
 procedure TMainWindow.PNGButton12Click(Sender: TObject);
-begin
-if(RadioGroup3.ItemIndex = 2) then testResult := testResult + 1;
+begin                                           
+{Тут для теста
+Проверка на правильность выбора варианта ответа, при нажатии на кнопку "Далее"}
+if(RadioGroup3.ItemIndex = 2) then testResult := testResult + 1;  
+{Убираем выбранный ответ, чтобы все осталось чистеньким}
 RadioGroup3.ItemIndex := -1;
 Label6.Caption := '4/10';
 TestPageControl.ActivePage := Level4Page;
 end;
 
 procedure TMainWindow.PNGButton13Click(Sender: TObject);
-begin
-if(RadioGroup4.ItemIndex = 2) then testResult := testResult + 1;
+begin                                
+{Тут для теста
+Проверка на правильность выбора варианта ответа, при нажатии на кнопку "Далее"}
+if(RadioGroup4.ItemIndex = 2) then testResult := testResult + 1;  
+{Убираем выбранный ответ, чтобы все осталось чистеньким}
 RadioGroup4.ItemIndex := -1;
 Label6.Caption := '5/10';
 TestPageControl.ActivePage := Level5Page;
 end;
 
 procedure TMainWindow.PNGButton14Click(Sender: TObject);
-begin
-if(RadioGroup5.ItemIndex = 0) then testResult := testResult + 1;
+begin                               
+{Тут для теста
+Проверка на правильность выбора варианта ответа, при нажатии на кнопку "Далее"}
+if(RadioGroup5.ItemIndex = 0) then testResult := testResult + 1;  
+{Убираем выбранный ответ, чтобы все осталось чистеньким}
 RadioGroup5.ItemIndex := -1;
 Label6.Caption := '6/10';
 TestPageControl.ActivePage := Level6Page;
 end;
 
 procedure TMainWindow.PNGButton15Click(Sender: TObject);
-begin
-if(RadioGroup6.ItemIndex = 2) then testResult := testResult + 1;
+begin                         
+{Тут для теста
+Проверка на правильность выбора варианта ответа, при нажатии на кнопку "Далее"}
+if(RadioGroup6.ItemIndex = 2) then testResult := testResult + 1;   
+{Убираем выбранный ответ, чтобы все осталось чистеньким}
 RadioGroup6.ItemIndex := -1;
 Label6.Caption := '7/10';
 TestPageControl.ActivePage := Level7Page;
 end;
 
 procedure TMainWindow.PNGButton16Click(Sender: TObject);
-begin
-if(RadioGroup7.ItemIndex = 1) then testResult := testResult + 1;
+begin                   
+{Тут для теста
+Проверка на правильность выбора варианта ответа, при нажатии на кнопку "Далее"}
+if(RadioGroup7.ItemIndex = 1) then testResult := testResult + 1; 
+{Убираем выбранный ответ, чтобы все осталось чистеньким}
 RadioGroup7.ItemIndex := -1;
 Label6.Caption := '8/10';
 TestPageControl.ActivePage := Level8Page;
 end;
 
 procedure TMainWindow.PNGButton17Click(Sender: TObject);
-begin
-if(RadioGroup8.ItemIndex = 2) then testResult := testResult + 1;
+begin                
+{Тут для теста
+Проверка на правильность выбора варианта ответа, при нажатии на кнопку "Далее"}
+if(RadioGroup8.ItemIndex = 2) then testResult := testResult + 1; 
+{Убираем выбранный ответ, чтобы все осталось чистеньким}
 RadioGroup8.ItemIndex := -1;
 Label6.Caption := '9/10';
 TestPageControl.ActivePage := Level9Page;
@@ -341,7 +382,10 @@ end;
 
 procedure TMainWindow.PNGButton18Click(Sender: TObject);
 begin
+{Тут для теста
+Проверка на правильность выбора варианта ответа, при нажатии на кнопку "Далее"}
 if(RadioGroup9.ItemIndex = 1) then testResult := testResult + 1;
+{Убираем выбранный ответ, чтобы все осталось чистеньким}
 RadioGroup9.ItemIndex := -1;
 Label6.Caption := '10/10';
 TestPageControl.ActivePage := Level10Page;
@@ -350,30 +394,47 @@ end;
 procedure TMainWindow.PNGButton19Click(Sender: TObject);
 var
 H, M, S, si:integer;
-begin   
+begin                                                     
+{Тут для теста
+Проверка на правильность выбора варианта ответа, при нажатии на кнопку "Далее"}
 if(RadioGroup10.ItemIndex = 2) then testResult := testResult + 1;
+{Убираем выбранный ответ, чтобы все осталось чистеньким}
 RadioGroup10.ItemIndex := -1;
+{Останавливаем Таймер}
 TimerTest.Enabled := false;
 Panel9.Visible := false;
+{Эта функция нужна для вывода время, потраченного на тест}
 si := 900 - i;
 H := si div 3600;
 M := (si mod 3600) div 60;
 S := (si mod 3600) mod 60;
+{и выводим}
 Label23.Caption := Format('%.2d:',[H]) + Format('%.2d:',[M]) + Format('%.2d',[S]);
 
+{Тут мы заносим результаты теста в БД
+Уже все настроенно, в SaveResultTestASOQuery SQL запрос написан
+и параметры составлены
+можешь посмотреть для примера}
 SaveResultTestADOQuery.Parameters.ParamByName('Tname').Value := Label21.Caption;
 SaveResultTestADOQuery.Parameters.ParamByName('Tsurname').Value := Label20.Caption;
 SaveResultTestADOQuery.Parameters.ParamByName('Tgroup').Value := Label19.Caption;    
 SaveResultTestADOQuery.Parameters.ParamByName('Tresult').Value := testResult;
 SaveResultTestADOQuery.ExecSQL;
-MainDataModule.ResultUsersADOTable.Active := false;  
+{Сэйвим в БД все результаты}
+{Тут обновим таблицу, которая находиться в конце теста}
+MainDataModule.ResultUsersADOTable.Active := false;
 MainDataModule.ResultUsersADOTable.Active := true;
 
 
+{Page}
 TestPageControl.ActivePage := ResultTestPage;
+{Если результат теста больше 7 то зеленый
+меньше 7 и больше 4 то оранжевый
+если меньше 4 то все херово}
 if(testResult > 7) then Label18.Font.Color := clLime;
 if(testResult < 7) and (testResult > 4) then  Label18.Font.Color := clOlive;
 if(testResult < 4) then Label18.Font.Color := clRed;
+{Выводим результат}
 Label18.Caption := IntToStr(testResult);
 end;
 
@@ -382,21 +443,6 @@ begin
 PNGButton3Click(Self);
 end;
 
-procedure TMainWindow.Timer1Timer(Sender: TObject);
-begin
-if iClose = 0 then
-begin
-Timer1.Enabled := false;
-Application.Terminate;
-end;
-iClose := iClose - 1;
-end;
 
-procedure TMainWindow.FormActivate(Sender: TObject);
-begin
-{ShowMessage('ВНИМАНИЕ! ПРОБНАЯ ВЕРСИЯ ДЛИТЬСЯ 1 МИНУТУ!');
-iClose := 60;
-Timer1.Enabled := true; }
-end;
 
 end.
