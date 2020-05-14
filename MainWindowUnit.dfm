@@ -1,6 +1,6 @@
 object MainWindow: TMainWindow
-  Left = 255
-  Top = 111
+  Left = 266
+  Top = 131
   BorderStyle = bsNone
   Caption = 'MainWindow'
   ClientHeight = 560
@@ -20,7 +20,7 @@ object MainWindow: TMainWindow
     Top = 48
     Width = 790
     Height = 520
-    ActivePage = Lesson1Page
+    ActivePage = HomePage
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWhite
     Font.Height = -11
