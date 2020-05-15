@@ -54,7 +54,8 @@ var
   AuthRegWindow: TAuthRegWindow;
 
 implementation
-uses MainDataModuleUnit, MainWindowUnit, ChangePasswordWindowUnit;
+uses MainDataModuleUnit, MainWindowUnit, ChangePasswordWindowUnit,
+  WindowUnit;
 {$R *.dfm}
 
 procedure TAuthRegWindow.FormCreate(Sender: TObject);
@@ -176,21 +177,20 @@ if(LoginAuthEdit.Text <> '') and (PassAuthEdit.Text <> '')then
         ShowMessage('Добро пожаловать, '+LoginAuthEdit.Text +' '+ MainDataModule.MainADOQuery.FieldByName('NameUser').Value+'!!!');
 
         {Это в главной форме выведем имя и фамилию пользователя}
-        MainWindow.PNGButton2.Caption := LoginAuthEdit.Text+' '+ MainDataModule.MainADOQuery.FieldByName('NameUser').Value;
-        MainWindow.Label21.Caption := MainDataModule.MainADOQuery.FieldByName('NameUser').Value;
-        MainWindow.Label20.Caption := LoginAuthEdit.Text; 
+        WindowMain.Name.Caption := MainDataModule.MainADOQuery.FieldByName('NameUser').Value;
+        WindowMain.Surname.Caption := LoginAuthEdit.Text;
 
         {Тут мы вытаскиваем Группу юзера}
         MainDataModule.MainADOQuery.SQL.Clear;
         MainDataModule.MainADOQuery.SQL.Add('SELECT GroupUser FROM Users WHERE SurnameUser='+#39+LoginAuthEdit.Text+#39);
         MainDataModule.MainADOQuery.Open;
-        MainWindow.Label19.Caption := MainDataModule.MainADOQuery.FieldByName('GroupUser').Value;
+        WindowMain.Group.Caption := MainDataModule.MainADOQuery.FieldByName('GroupUser').Value;
 
         {Очистка полей авторизации}
         LoginAuthEdit.Clear;
         PassAuthEdit.Clear;
-        MainWindow.MainPageControl.ActivePage := MainWindow.HomePage;
-        MainWindow.Show();
+        WindowMain.MainPageControl.ActivePage := WindowMain.HomePage;
+        WindowMain.Show();
         Hide;
      end
      else

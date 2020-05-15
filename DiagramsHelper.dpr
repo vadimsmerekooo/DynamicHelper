@@ -12,8 +12,8 @@ uses
 
 begin
   Application.Initialize;
-  Application.CreateForm(TWindowMain, WindowMain);
   Application.CreateForm(TAuthRegWindow, AuthRegWindow);
+  Application.CreateForm(TWindowMain, WindowMain);
   Application.CreateForm(TMainWindow, MainWindow);
   Application.CreateForm(TMainDataModule, MainDataModule);
   Application.CreateForm(TChangePasswordWindow, ChangePasswordWindow);

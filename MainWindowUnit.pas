@@ -417,7 +417,7 @@ Label23.Caption := Format('%.2d:',[H]) + Format('%.2d:',[M]) + Format('%.2d',[S]
 можешь посмотреть для примера}
 SaveResultTestADOQuery.Parameters.ParamByName('Tname').Value := Label21.Caption;
 SaveResultTestADOQuery.Parameters.ParamByName('Tsurname').Value := Label20.Caption;
-SaveResultTestADOQuery.Parameters.ParamByName('Tgroup').Value := Label19.Caption;    
+SaveResultTestADOQuery.Parameters.ParamByName('Tgroup').Value := Label19.Caption;
 SaveResultTestADOQuery.Parameters.ParamByName('Tresult').Value := testResult;
 SaveResultTestADOQuery.ExecSQL;
 {Сэйвим в БД все результаты}

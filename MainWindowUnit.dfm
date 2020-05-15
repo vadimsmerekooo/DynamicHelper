@@ -20,7 +20,7 @@ object MainWindow: TMainWindow
     Top = 48
     Width = 790
     Height = 520
-    ActivePage = HomePage
+    ActivePage = TestPage
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWhite
     Font.Height = -11
@@ -5509,7 +5509,7 @@ object MainWindow: TMainWindow
         Top = -30
         Width = 785
         Height = 519
-        ActivePage = Level9Page
+        ActivePage = Level10Page
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
         Font.Height = -13

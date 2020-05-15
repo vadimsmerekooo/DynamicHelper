@@ -12,6 +12,8 @@ type
     ChangePasswordADOQuery: TADOQuery;
     ResultUsersADOTable: TADOTable;
     ResultUsersDataSource: TDataSource;
+    BestResultADOTabel: TADOTable;
+    BestResultTableDataSource: TDataSource;
   private
     { Private declarations }
   public

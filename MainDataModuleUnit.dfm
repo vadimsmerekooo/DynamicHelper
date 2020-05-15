@@ -51,12 +51,25 @@ object MainDataModule: TMainDataModule
     CursorType = ctStatic
     LockType = ltReadOnly
     TableName = 'UsersResult'
-    Left = 96
+    Left = 152
     Top = 48
   end
   object ResultUsersDataSource: TDataSource
     DataSet = ResultUsersADOTable
     Left = 216
+    Top = 48
+  end
+  object BestResultADOTabel: TADOTable
+    Active = True
+    Connection = MainADOConnection
+    CursorType = ctStatic
+    TableName = 'UsersResult'
+    Left = 40
+    Top = 48
+  end
+  object BestResultTableDataSource: TDataSource
+    DataSet = BestResultADOTabel
+    Left = 104
     Top = 48
   end
 end
